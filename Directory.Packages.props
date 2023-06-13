@@ -1,0 +1,30 @@
+﻿<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Fundamental packages -->
+    <PackageVersion Include="KafkaFlow" Version="2.3.0-beta.1" />
+    <PackageVersion Include="KafkaFlow.Microsoft.DependencyInjection" Version="2.3.0-beta.1" />
+    <PackageVersion Include="KafkaFlow.Retry" Version="2.1.0" />
+    <PackageVersion Include="KafkaFlow.Serializer.ProtobufNet" Version="2.3.0-beta.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.4.23259.5" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0-preview.4.23259.5" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageVersion Include="Arcus.Observability.Telemetry.Core" Version="2.2.2" />
+    <PackageVersion Include="Arcus.Observability.Telemetry.Serilog.Sinks.ApplicationInsights" Version="2.2.2" />
+    <PackageVersion Include="Arcus.Security.Providers.AzureKeyVault" Version="1.6.0" />
+    <PackageVersion Include="Arcus.WebApi.Logging" Version="1.4.0" />
+    <PackageVersion Include="Dapr.Actors.AspNetCore" Version="1.4.0" />
+    <PackageVersion Include="Microsoft.Azure.Devices.Client" Version="1.38.0" />
+    <!-- Testing packages -->
+    <PackageVersion Include="coverlet.msbuild" Version="3.2.0" PrivateAssets="all" />
+    <PackageVersion Include="FluentAssertions" Version="6.6.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageVersion Include="Moq" Version="4.17.2" />
+    <PackageVersion Include="xunit" Version="2.4.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

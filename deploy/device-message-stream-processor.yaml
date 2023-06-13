@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: iot-with-dapr-device-telemetry-secrets
+  labels:
+    app: iot-with-dapr
+    component: actors
+    area: app-runtime
+data:
+  functionStorage: <base-64-encoded-function-storage-connection-string>
+  eventHubsConnectionstring: <base-64-encoded-event-hubs-connection-string>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-telemetry-stream-processor
+  labels:
+    app: iot-with-dapr
+    component: device-telemetry
+    area: app-runtime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iot-with-dapr
+      component: device-telemetry
+      area: app-runtime
+  template:
+    metadata:
+      labels:
+        app: iot-with-dapr
+        component: device-telemetry
+        area: app-runtime
+    spec:
+      containers:
+      - name: device-telemetry
+        image: ghcr.io/tomkerkhove/iot-with-dapr-streaming-device-telemetry
+        ports:
+        # Port for HTTP triggered functions
+        - containerPort: 80
+        env:
+        - name: AzureFunctionsJobHost__functions__0
+          value: device-message-processor
+        - name: DeviceRegistry.API.BaseUri
+          value: "http://iot-with-dapr-apis-device-service"
+        - name: AzureWebJobsStorage
+          valueFrom:
+            secretKeyRef:
+              name: iot-with-dapr-device-telemetry-secrets
+              key: functionStorage
+        - name: EventHubs.ConnectionStrings.DeviceMessages
+          valueFrom:
+            secretKeyRef:
+              name: iot-with-dapr-device-telemetry-secrets
+              key: eventHubsConnectionstring
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: device-telemetry-autoscale
+  labels:
+    app: iot-with-dapr
+    component: device-telemetry
+    area: autoscaling
+spec:
+  scaleTargetRef:
+    name: device-telemetry-stream-processor
+  triggers:
+  - type: azure-eventhub
+    metadata:
+      connection: EventHubs.ConnectionStrings.DeviceMessages
+      storageConnection: AzureWebJobsStorage
+      blobContainer: azure-webjobs-eventhub

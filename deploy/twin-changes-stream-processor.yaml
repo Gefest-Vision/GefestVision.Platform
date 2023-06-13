@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: iot-with-dapr-twin-change-secrets
+  labels:
+    app: iot-with-dapr
+    component: actors
+    area: app-runtime
+data:
+  functionStorage: <base-64-encoded-function-storage-connection-string>
+  eventHubsConnectionstring: <base-64-encoded-event-hubs-connection-string>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twin-changes-stream-processor
+  labels:
+    app: iot-with-dapr
+    component: twin-changes
+    area: app-runtime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iot-with-dapr
+      component: twin-changes
+      area: app-runtime
+  template:
+    metadata:
+      labels:
+        app: iot-with-dapr
+        component: twin-changes
+        area: app-runtime
+    spec:
+      containers:
+      - name: twin-changes
+        image: ghcr.io/tomkerkhove/iot-with-dapr-streaming-device-twins:dev
+        ports:
+        # Port for HTTP triggered functions
+        - containerPort: 80
+        env:
+        - name: AzureFunctionsJobHost__functions__0
+          value: twin-change-monitor
+        - name: DeviceRegistry.API.BaseUri
+          value: "http://iot-with-dapr-apis-device-service"
+        - name: AzureWebJobsStorage
+          valueFrom:
+            secretKeyRef:
+              name: iot-with-dapr-twin-change-secrets
+              key: functionStorage
+        - name: EventHubs.ConnectionStrings.TwinChanges
+          valueFrom:
+            secretKeyRef:
+              name: iot-with-dapr-twin-change-secrets
+              key: eventHubsConnectionstring
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: twin-changes-autoscale
+  labels:
+    app: iot-with-dapr
+    component: twin-changes
+    area: autoscaling
+spec:
+  scaleTargetRef:
+    name: twin-changes-stream-processor
+  triggers:
+  - type: azure-eventhub
+    metadata:
+      connection: EventHubs.ConnectionStrings.TwinChanges
+      storageConnection: AzureWebJobsStorage
+      blobContainer: azure-webjobs-eventhub

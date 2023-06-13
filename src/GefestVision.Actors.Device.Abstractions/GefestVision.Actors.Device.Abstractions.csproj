@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\GefestVision.Core\GefestVision.Core.csproj"/>
+  </ItemGroup>
+</Project>

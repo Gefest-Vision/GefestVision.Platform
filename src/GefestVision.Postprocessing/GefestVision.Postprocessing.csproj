@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+
+      <ProjectReference Include="..\GefestVision.Platform\GefestVision.Platform.csproj"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <ItemGroup>
+    <ProjectReference Include="..\GefestVision.Core\GefestVision.Core.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="KafkaFlow" />
+    <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" />
+    <PackageReference Include="KafkaFlow.Retry" />
+    <PackageReference Include="KafkaFlow.Serializer.ProtobufNet" />
+  </ItemGroup>
+
+</Project>

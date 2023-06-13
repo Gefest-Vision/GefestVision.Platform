@@ -1,0 +1,16 @@
+﻿using Dapr.Actors;
+using GefestVision.Core.Contracts;
+
+namespace GefestVision.Core.Actors.Device.Interface;
+
+public interface IDeviceActor : IActor
+{
+    Task ProvisionAsync(DeviceInfo info, TwinInformation initialTwinInfo);
+    Task SetInfoAsync(DeviceInfo info);
+    Task IpAddressHasChangedAsync(string newIpAddress);
+    Task<DeviceInfo> GetInfoAsync();
+    Task<Dictionary<string, string>> GetTagsAsync();
+    Task ReceiveMessageAsync(MessageTypes type, Message message);
+    Task NotifyTwinInformationChangedAsync(TwinInformation notification);
+    Task SetReportedPropertyAsync(Dictionary<string, string> reportedProperties);
+}

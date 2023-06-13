@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <DockerFastModeProjectMountDirectory>/home/site/wwwroot</DockerFastModeProjectMountDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Guard.NET" Version="1.2.0"/>
+    <PackageReference Include="Microsoft.Azure.Devices" Version="1.35.0"/>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.20"/>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.13"/>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1"/>
+    <PackageReference Remove="SonarAnalyzer.CSharp"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GefestVision.Core\GefestVision.Core.csproj"/>
+    <ProjectReference Include="..\GefestVision.Streaming.Runtimes.AzureFunctions\GefestVision.Streaming.Runtimes.AzureFunctions.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+</Project>

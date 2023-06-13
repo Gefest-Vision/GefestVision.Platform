@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <UserSecretsId>5dfa93ac-3b20-437d-ac6e-34a2bbbfea33</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Arcus.Observability.Telemetry.Core" Version="2.2.2"/>
+    <PackageReference Include="Arcus.Observability.Telemetry.Serilog.Sinks.ApplicationInsights" Version="2.2.2"/>
+    <PackageReference Include="Arcus.Security.Providers.AzureKeyVault" Version="1.6.0"/>
+    <PackageReference Include="Arcus.WebApi.Logging" Version="1.4.0"/>
+    <PackageReference Include="Dapr.Actors.AspNetCore" Version="1.4.0"/>
+    <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.38.0"/>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GefestVision.Core\GefestVision.Core.csproj"/>
+  </ItemGroup>
+
+
+</Project>

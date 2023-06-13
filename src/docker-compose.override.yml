@@ -1,0 +1,27 @@
+version: '3.4'
+#
+#services:
+#  tomkerkhove.dapr.actors.runtime:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_URLS=https://+:443;http://+:80
+#      - APPLICATION_INSIGHTS=<omitted>
+#      - "IOTHUB_CONNECTIONSTRING_DEVICE_demo-device=<ioT-hub-connection-string>"
+#    ports:
+#      - "881:80"
+#    volumes:
+#      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+#      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+#  tomkerkhove.dapr.apis.management:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - HTTP_PORT=80
+#      - APPLICATION_INSIGHTS=<omitted>
+#    ports:
+#      - "880:80"
+#    volumes:
+#      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+#      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+#  # tomkerkhove.dapr.workers.devices.twinchanges:
+#  #   environment:
+#  #     - "TwinEventHubs=<omitted>"

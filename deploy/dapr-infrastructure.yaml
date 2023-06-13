@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dapr-infrastructure-secrets
+  labels:
+    app: dapr-infrastructure
+data:
+  stateStoreConnectionstring: <base-64-key>
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: dapr-state-store
+  labels:
+    app: dapr-infrastructure
+spec:
+  type: state.azure.cosmosdb
+  version: v1
+  metadata:
+  - name: url
+    value: https://<cosmos-db-name>.documents.azure.com:443
+  - name: masterKey
+    secretKeyRef:
+      name: dapr-infrastructure-secrets
+      key: stateStoreConnectionstring
+  - name: database
+    value: "platform"
+  - name: collection
+    value: "state-store"
+  - name: actorStateStore
+    value: "true"
